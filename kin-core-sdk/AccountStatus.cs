@@ -1,6 +1,4 @@
 namespace kin_core_sdk
 {
-public class AccountStatus
-{
-}
+    public class AccountStatus { }
 }

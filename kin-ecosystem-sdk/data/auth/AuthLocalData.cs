@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Data.Auth
 {
-public class AuthLocalData
-{
-}
+    public class AuthLocalData { }
 }

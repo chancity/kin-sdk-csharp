@@ -1,6 +1,4 @@
 namespace kin_ecosystem_api_client.Util
 {
-public class DeviceUtils
-{
-}
+    public class DeviceUtils { }
 }

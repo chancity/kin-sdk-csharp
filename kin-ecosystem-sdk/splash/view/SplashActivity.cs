@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Splash.View
 {
-public class SplashActivity
-{
-}
+    public class SplashActivity { }
 }

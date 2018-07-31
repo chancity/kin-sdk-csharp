@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Base
 {
-public class IBasePresenter
-{
-}
+    public interface IBasePresenter { }
 }

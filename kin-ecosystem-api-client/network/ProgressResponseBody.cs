@@ -1,6 +1,4 @@
 namespace kin_ecosystem_api_client.Network
 {
-public class ProgressResponseBody
-{
-}
+    public class ProgressResponseBody { }
 }

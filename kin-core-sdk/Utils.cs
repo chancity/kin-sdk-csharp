@@ -1,6 +1,4 @@
 namespace kin_core_sdk
 {
-public class Utils
-{
-}
+    public class Utils { }
 }

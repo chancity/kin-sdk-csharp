@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Data.Blockchain
 {
-public class BlockchainSourceImpl
-{
-}
+    public class BlockchainSourceImpl { }
 }

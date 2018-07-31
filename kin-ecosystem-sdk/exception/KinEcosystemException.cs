@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Exception
 {
-public class KinEcosystemException
-{
-}
+    public class KinEcosystemException { }
 }

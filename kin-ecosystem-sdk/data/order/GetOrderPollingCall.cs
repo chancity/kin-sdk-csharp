@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Data.Order
 {
-public class GetOrderPollingCall
-{
-}
+    public class GetOrderPollingCall { }
 }

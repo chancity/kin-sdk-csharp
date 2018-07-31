@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Network.Model
 {
-public class PagingCursors
-{
-}
+    public class PagingCursors { }
 }

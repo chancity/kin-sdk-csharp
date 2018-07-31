@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Balance.Presenter
 {
-public class IBalancePresenter
-{
-}
+    public interface IBalancePresenter { }
 }

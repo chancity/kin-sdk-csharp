@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Bi
 {
-public class Event
-{
-}
+    public class Event { }
 }

@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Data.Offer
 {
-public class OfferRepository
-{
-}
+    public class OfferRepository { }
 }

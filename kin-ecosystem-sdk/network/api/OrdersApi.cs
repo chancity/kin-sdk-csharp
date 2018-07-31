@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Network.Api
 {
-public class OrdersApi
-{
-}
+    public class OrdersApi { }
 }

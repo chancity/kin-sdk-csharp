@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Balance.View
 {
-public class IBalanceView
-{
-}
+    public interface IBalanceView { }
 }

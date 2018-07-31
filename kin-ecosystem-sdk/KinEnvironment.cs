@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk
 {
-public class KinEnvironment
-{
-}
+    public class KinEnvironment { }
 }

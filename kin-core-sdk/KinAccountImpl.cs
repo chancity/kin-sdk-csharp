@@ -1,6 +1,4 @@
 namespace kin_core_sdk
 {
-public class KinAccountImpl
-{
-}
+    public class KinAccountImpl { }
 }

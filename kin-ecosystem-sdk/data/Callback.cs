@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Data
 {
-public class Callback
-{
-}
+    public class Callback { }
 }

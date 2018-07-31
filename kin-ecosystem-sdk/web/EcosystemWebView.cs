@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Web
 {
-public class EcosystemWebView
-{
-}
+    public class EcosystemWebView { }
 }

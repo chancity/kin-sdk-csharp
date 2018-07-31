@@ -1,6 +1,4 @@
 namespace kin_core_sdk.Exception
 {
-public class DeleteAccountException
-{
-}
+    public class DeleteAccountException { }
 }

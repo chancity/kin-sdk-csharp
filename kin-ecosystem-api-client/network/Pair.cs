@@ -1,6 +1,4 @@
 namespace kin_ecosystem_api_client.Network
 {
-public class Pair
-{
-}
+    public class Pair { }
 }

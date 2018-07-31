@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Marketplace.View
 {
-public class EarnRecyclerAdapter
-{
-}
+    public class EarnRecyclerAdapter { }
 }

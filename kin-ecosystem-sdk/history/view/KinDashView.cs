@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.History.View
 {
-public class KinDashView
-{
-}
+    public class KinDashView { }
 }

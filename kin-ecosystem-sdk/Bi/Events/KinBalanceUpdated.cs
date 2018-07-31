@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Bi.Events
 {
-public class KinBalanceUpdated
-{
-}
+    public class KinBalanceUpdated { }
 }

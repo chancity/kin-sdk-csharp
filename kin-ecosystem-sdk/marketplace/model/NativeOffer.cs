@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Marketplace.Model
 {
-public class NativeOffer
-{
-}
+    public class NativeOffer { }
 }
