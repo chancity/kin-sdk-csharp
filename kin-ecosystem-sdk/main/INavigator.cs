@@ -1,6 +1,4 @@
 namespace kin_ecosystem_sdk.Main
 {
-public class INavigator
-{
-}
+    public interface INavigator { }
 }
