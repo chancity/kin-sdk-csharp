@@ -206,6 +206,7 @@ namespace stellar_dotnet_sdk
             request.Accept = "text/event-stream";
             request.AllowAutoRedirect = true;
             request.KeepAlive = true;
+            request.Proxy = null; //docker support
             request.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
             if (Headers != null) request.Headers.Add(Headers);
             if (!string.IsNullOrEmpty(LastEventId)) request.Headers.Add("Last-Event-Id", LastEventId);
