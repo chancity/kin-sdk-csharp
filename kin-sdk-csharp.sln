@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-ecosystem-sdk", "kin-ec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-ecosystem-api-client", "kin-ecosystem-api-client\kin-ecosystem-api-client.csproj", "{3A4F367D-8EBB-4058-863D-8E77054BEFCA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stellar-dotnet-sdk", "stellar-dotnet-sdk\stellar-dotnet-sdk.csproj", "{205C4447-79E6-41C1-A70E-5370F4663A81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3A4F367D-8EBB-4058-863D-8E77054BEFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A4F367D-8EBB-4058-863D-8E77054BEFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4F367D-8EBB-4058-863D-8E77054BEFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205C4447-79E6-41C1-A70E-5370F4663A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205C4447-79E6-41C1-A70E-5370F4663A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205C4447-79E6-41C1-A70E-5370F4663A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205C4447-79E6-41C1-A70E-5370F4663A81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
