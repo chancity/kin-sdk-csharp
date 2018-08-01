@@ -12,6 +12,12 @@ namespace kin_kinit_mocker.Model.Earn
         [JsonProperty("aid)")]
         public List<string> AnswersIds { get; set; }
 
+        public ChosenAnswers(string questionId, List<string> answersIds)
+        {
+            QuestionId = questionId;
+            AnswersIds = answersIds;
+        }
 
+        public ChosenAnswers() { }
     }
 }

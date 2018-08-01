@@ -9,9 +9,11 @@ namespace kin_kinit_mocker.Repository
     public class InMemoryDataStore : IDataStore
     {
         private readonly ConcurrentDictionary<string, object> _store;
+        public string InstanceId { get; private set; }
 
-        public InMemoryDataStore()
+        public InMemoryDataStore(string instanceId)
         {
+            InstanceId = instanceId;
             _store = new ConcurrentDictionary<string, object>();
         }
 
