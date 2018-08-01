@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace kin_kinit_mocker.Network.Model.Requests
 {
-    public struct ContactInfoRequest
+    internal struct ContactInfoRequest
     {
         [JsonProperty("phone_number")]
         public string PhoneNumber { get; set; }
