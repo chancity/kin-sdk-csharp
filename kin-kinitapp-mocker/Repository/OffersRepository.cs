@@ -5,10 +5,11 @@ using kin_kinit_mocker.Model.Spend;
 
 namespace kin_kinit_mocker.Repository
 {
-    public class OffersRepository
+    internal class OffersRepository
     {
         private List<Offer> _offers;
-        public int NumOfOffers => _offers.Count;
+        public int OffersCount => _offers.Count;
+        public bool IsEmpty => _offers.Count == 0;
         public OffersRepository()
         {
             _offers = new List<Offer>();
@@ -19,14 +20,30 @@ namespace kin_kinit_mocker.Repository
             return _offers[index];
         }
 
-        public void ReplaceOfferList(List<Offer> newOfferList)
+        public void UpdateOffers(List<Offer> newOfferList)
         {
-            _offers = newOfferList;
+            if (IsDifferent(newOfferList))
+            {
+                _offers = newOfferList;
+            }
+           
         }
 
+        private bool IsDifferent(List<Offer> diffValue)
+        {
+            if (diffValue.Count != _offers.Count) return true;
+
+            for (int i = 0; i < _offers.Count; i++)
+            {
+                if (_offers[i] != diffValue[i])
+                    return true;
+            }
+
+            return false;
+        }
         public bool HasValidOffer(int index)
         {
-            return index >= 0 && index < NumOfOffers;
+            return index >= 0 && index < _offers.Count;
         }
     }
 }
