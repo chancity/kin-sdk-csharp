@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-core-sdk", "kin-core-sdk\kin-core-sdk.csproj", "{D2C68BEC-8352-4867-BD9B-64A294C1DC97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kin-core-sdk", "kin-core-sdk\kin-core-sdk.csproj", "{D2C68BEC-8352-4867-BD9B-64A294C1DC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-ecosystem-sdk", "kin-ecosystem-sdk\kin-ecosystem-sdk.csproj", "{68FCB94D-1A1A-40C2-B60F-4181A247A033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kin-ecosystem-sdk", "kin-ecosystem-sdk\kin-ecosystem-sdk.csproj", "{68FCB94D-1A1A-40C2-B60F-4181A247A033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-ecosystem-api-client", "kin-ecosystem-api-client\kin-ecosystem-api-client.csproj", "{3A4F367D-8EBB-4058-863D-8E77054BEFCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kin-ecosystem-api-client", "kin-ecosystem-api-client\kin-ecosystem-api-client.csproj", "{3A4F367D-8EBB-4058-863D-8E77054BEFCA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stellar-dotnet-sdk", "stellar-dotnet-sdk\stellar-dotnet-sdk.csproj", "{205C4447-79E6-41C1-A70E-5370F4663A81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-kinitapp", "kin-kinitapp-mocker\kin-kinitapp.csproj", "{675087B1-E7F5-42F1-92D7-D138E7662CD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinit-TestApp", "Kinit-TestApp\Kinit-TestApp.csproj", "{425EA85D-1BE7-4447-901A-45A1C7059F28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{205C4447-79E6-41C1-A70E-5370F4663A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{205C4447-79E6-41C1-A70E-5370F4663A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{205C4447-79E6-41C1-A70E-5370F4663A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675087B1-E7F5-42F1-92D7-D138E7662CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675087B1-E7F5-42F1-92D7-D138E7662CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675087B1-E7F5-42F1-92D7-D138E7662CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675087B1-E7F5-42F1-92D7-D138E7662CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
