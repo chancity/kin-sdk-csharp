@@ -8,7 +8,7 @@ using Refit;
 
 namespace kin_kinit_mocker.Network
 {
-    interface PhoneAuthenticationApi
+    internal interface PhoneAuthenticationApi
     {
         [Post("/user/firebase/update-id-token")]
         Task<StatusConfigResponse> IpdatePhoneAuthToken([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] TokenInfoRequest tokenInfoRequestBody);

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace kin_kinit_mocker.Network
 {
-    public class ServiceCommonData
+    internal class ServiceCommonData
     {
         public const int ERROR_NO_INTERNET = 1;
         public const int ERROR_NO_PUBLIC_ADDRESS = 2;

@@ -9,7 +9,7 @@ using Refit;
 
 namespace kin_kinit_mocker.Network
 {
-    interface OnboardingApi
+    internal interface OnboardingApi
     {
         [Post("/user/register")]
         Task<StatusConfigResponse> Register([Body] RegistrationInfoRequest registrationInfoRequestBody);

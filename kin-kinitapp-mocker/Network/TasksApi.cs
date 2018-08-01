@@ -8,7 +8,7 @@ using Refit;
 
 namespace kin_kinit_mocker.Network
 {
-    interface TasksApi
+    internal interface TasksApi
     {
         [Post("/user/task/results")]
         Task <TaskSubmitResponse> SubmitTaskResults([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] SubmitInfoRequest submitInfoRequest);

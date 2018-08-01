@@ -6,5 +6,10 @@ namespace kin_kinit_mocker.Network.Model.Requests
     {
         [JsonProperty("token")]
         public string Token { get; private set; }
+
+        public TokenInfoRequest(string token)
+        {
+            Token = token;
+        }
     }
 }

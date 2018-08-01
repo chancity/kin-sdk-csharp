@@ -8,7 +8,7 @@ using Refit;
 
 namespace kin_kinit_mocker.Network
 {
-    interface OffersApi
+    internal interface OffersApi
     {
         [Get("/user/offers")]
         Task<OffersResponse> Offers([Header(ServiceCommonData.USER_HEADER_KEY)] string userId);
