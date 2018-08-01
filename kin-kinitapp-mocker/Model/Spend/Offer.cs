@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace kin_kinit_mocker.Model.Spend
 {
-    public struct Offer
+    public class Offer
     {
         public const string TYPE_P2P = "p2p";
 
@@ -37,10 +37,10 @@ namespace kin_kinit_mocker.Model.Spend
     {
         public static bool IsValid(this Offer offer)
         {
-            if (string.IsNullOrEmpty(offer.Id) || string.IsNullOrEmpty(offer.Title) ||
-                string.IsNullOrEmpty(offer.Description) || string.IsNullOrEmpty(offer.Type) ||
-                string.IsNullOrEmpty(offer.Address) || string.IsNullOrEmpty(offer.ImageUrl) ||
-                string.IsNullOrEmpty(offer.ImageTypeUrl) || string.IsNullOrEmpty(offer.Domain) ||
+            if (offer.Id.IsNullOrBlank() || offer.Title.IsNullOrBlank() ||
+                offer.Description.IsNullOrBlank() || offer.Type.IsNullOrBlank() ||
+                offer.Address.IsNullOrBlank() || offer.ImageUrl.IsNullOrBlank() ||
+                offer.ImageTypeUrl.IsNullOrBlank() || offer.Domain.IsNullOrBlank() ||
                 offer.Price == null || offer.Provider == null)
             {
                 return false;

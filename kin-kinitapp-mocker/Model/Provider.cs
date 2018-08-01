@@ -17,7 +17,7 @@ namespace kin_kinit_mocker.Model
     {
         public static bool IsValid(this Provider provider)
         {
-            return !string.IsNullOrEmpty(provider.ImageUrl) && !string.IsNullOrEmpty(provider.ImageUrl);
+            return !provider.ImageUrl.IsNullOrBlank() && !provider.ImageUrl.IsNullOrBlank();
         }
     }
 }
