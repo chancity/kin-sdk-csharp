@@ -49,7 +49,8 @@ namespace kin_kinit_mocker
             AllowTrustOperation.Builder allowTrustOperationBuilder =
                 new AllowTrustOperation.Builder(account, "KIN", true).SetSourceAccount(account);
             
-            ChangeTrustOperation.Builder changeTrustOperationBuilder = new ChangeTrustOperation.Builder((AssetTypeCreditAlphaNum)_kinAsset, TRUST_NO_LIMIT_VALUE).SetSourceAccount(account);
+            ChangeTrustOperation.Builder changeTrustOperationBuilder = new ChangeTrustOperation.Builder((AssetTypeCreditAlphaNum)_kinAsset,
+                                                                                                        TRUST_NO_LIMIT_VALUE).SetSourceAccount(account);
 
             ChangeTrustOperation changeTrustOperation = changeTrustOperationBuilder.Build();
 

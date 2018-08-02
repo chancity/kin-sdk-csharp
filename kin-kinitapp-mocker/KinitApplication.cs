@@ -88,24 +88,77 @@ namespace kin_kinit_mocker
         {
             Task.Factory.StartNew(MainLoop, TaskCreationOptions.LongRunning);
         }
+        public async Task CreateAndActivate()
+        {
+            try
+            {
+                if (!_userRepository.IsRegistered)
+                {
+                    await Register().ConfigureAwait(false);
+                    await OnBoard().ConfigureAwait(false);
+                }
+                else
+                {
+                    Console.WriteLine("User is already registered launching bot app");
+                    await AppLaunch().ConfigureAwait(false);
+                    await UpdateOffers().ConfigureAwait(false);
+                    return;
+                }
+            }
+            catch (ApiException apiExceptionx)
+            {
+                Console.WriteLine(apiExceptionx.Content.Trim());
 
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                throw;
+            }
+
+
+          //  await SaveState().ConfigureAwait(false);
+
+
+            while (true)
+            {
+                await Task.Delay(5000).ConfigureAwait(false); ;
+
+                try
+                {
+                    if (!_userRepository.IsWalletActivated)
+                    {
+                        _userRepository.IsWalletActivated =
+                            await _userRepository.UserInfo.KayPair.Activate().ConfigureAwait(false);
+
+                        if (!_userRepository.IsWalletActivated)
+                        {
+                            continue;
+                        }
+
+                        Console.WriteLine("Account has Kin Asset");
+                        //await UpdateTask().ConfigureAwait(false);
+                        await SaveState().ConfigureAwait(false);
+                        return;
+                    }
+                }
+                catch (ApiException apiExceptionx)
+                {
+                    Console.WriteLine(apiExceptionx.Content.Trim());
+                    await Task.Delay(1000).ConfigureAwait(false);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    await Task.Delay(1000).ConfigureAwait(false);
+                }
+
+            }
+        }
         private async void MainLoop()
         {
-            if (!_userRepository.IsRegistered)
-            {
-                await Register().ConfigureAwait(true);
-                await OnBoard().ConfigureAwait(true);
-            }
-            else
-            {
-                Console.WriteLine("User is already registered launching bot app");
-                await AppLaunch().ConfigureAwait(true);
-                await UpdateOffers().ConfigureAwait(false);
-            }
-
-            await SaveState().ConfigureAwait(true);
-
-
             while (true)
             {
                 await Task.Delay(5000).ConfigureAwait(true); ;
@@ -125,17 +178,16 @@ namespace kin_kinit_mocker
                         }
 
                         Console.WriteLine("Account has Kin Asset");
+                        break;
                     }
 
                     await UpdateTask().ConfigureAwait(true);
                     AnswerTaskQuestions();
                     await SaveState().ConfigureAwait(true);
-
-
-
                     TaskSubmitResponse answerTaskQuestions = await SubmitTaskResults().ConfigureAwait(true);
                     Console.WriteLine($"Submited task results, tx = {answerTaskQuestions?.TxId}");
                     _tasksRepository.ReplaceTask();
+
                     await SaveState().ConfigureAwait(true);
                 }
                 catch (ApiException apiExceptionx)

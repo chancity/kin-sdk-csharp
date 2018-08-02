@@ -11,9 +11,9 @@ namespace kin_kinit_mocker.Network.Model.Requests
         [JsonProperty("os")]
         public string os { get; set; } = "android";
         [JsonProperty("device_model")]
-        public string deviceModel { get; set; } = "HTC6525LVW";
+        public string deviceModel { get; set; } = "Samsung9";
         [JsonProperty("time_zone")]
-        public string timeZone { get; set; } = TimeZone.CurrentTimeZone.StandardName;
+        public string timeZone { get; set; }
         [JsonProperty("device_id")]
         public string deviceId { get; set; } = Guid.NewGuid().ToString().ToUpper();
         [JsonProperty("app_ver")]
@@ -28,6 +28,9 @@ namespace kin_kinit_mocker.Network.Model.Requests
         public RegistrationInfoRequest(string userId)
         {
             this.userId = userId;
+            var timeDiff = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            var sign = timeDiff.Hours > 0 ? "+" : "-";
+            timeZone = sign + timeDiff.ToString("hh\\:mm");
         }
     }
 }
