@@ -21,8 +21,8 @@ namespace Kinit_TestApp
         private static int _queueCounter = 0;
         private static int _createdCount = 0;
         private static int _failedCount = 0;
-        private static int _maxQueue = 5;
-        private static int sleepBetweenQueries = 50;
+        private static int _maxQueue = 25;
+        private static int sleepBetweenQueries = 100;
         private static CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private const string AppStatePath = "./app_states/";
         static void Main(string[] args)

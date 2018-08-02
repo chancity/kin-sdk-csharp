@@ -11,7 +11,7 @@ namespace kin_kinit_mocker.Network.Model.Requests
         [JsonProperty("os")]
         public string os { get; set; } = "android";
         [JsonProperty("device_model")]
-        public string deviceModel { get; set; } = "Samsung9";
+        public string deviceModel { get; set; } = Guid.NewGuid().ToString("N").ToUpper();
         [JsonProperty("time_zone")]
         public string timeZone { get; set; }
         [JsonProperty("device_id")]
