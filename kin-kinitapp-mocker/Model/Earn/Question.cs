@@ -49,10 +49,13 @@ namespace kin_kinit_mocker.Model.Earn
         }
 
         public static bool IsTypeDualImage (this Question question) => 
-            question.Type == Question.TEXT_DUAL_IMAGE;
+            question?.Type == Question.TEXT_DUAL_IMAGE;
+
+        public static bool IsTypeMultiple(this Question question) =>
+            question?.Type == Question.TEXT_MULTIPLE;
 
         public static bool HasImages(this Question question) =>
-            question.Type == Question.TEXT_IMAGE || question.Type == Question.TEXT_DUAL_IMAGE;
+            question?.Type == Question.TEXT_IMAGE || question?.Type == Question.TEXT_DUAL_IMAGE;
 
         public static ImmutableList<string> GetImagesUrls(this Question question)
         {
@@ -68,6 +71,25 @@ namespace kin_kinit_mocker.Model.Earn
             
             return urls;
         }
+
        
+    }
+
+    public static class EnumerableExtension
+    {
+        public static T PickRandom<T>(this IEnumerable<T> source)
+        {
+            return source.PickRandom(1).Single();
+        }
+
+        public static IEnumerable<T> PickRandom<T>(this IEnumerable<T> source, int count)
+        {
+            return source.Shuffle().Take(count);
+        }
+
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+        {
+            return source.OrderBy(x => Guid.NewGuid());
+        }
     }
 }

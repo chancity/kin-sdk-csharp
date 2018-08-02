@@ -12,11 +12,11 @@ namespace kin_kinit_mocker.Network.Model.Requests
         [JsonProperty("id")]
         public string TaskId { get; private set; }
         [JsonProperty("results")]
-        public List<ChosenAnswers> ChosenAnswersList { get; private set; }
+        public List<ChosenAnswer> ChosenAnswersList { get; private set; }
         [JsonProperty("address")]
         public string PublicAddress { get; private set; }
 
-        public SubmitInfoRequest(string taskId, string publicAddress, List<ChosenAnswers> chosenAnswersList)
+        public SubmitInfoRequest(string taskId, string publicAddress, List<ChosenAnswer> chosenAnswersList)
         {
             TaskId = taskId;
             PublicAddress = publicAddress;

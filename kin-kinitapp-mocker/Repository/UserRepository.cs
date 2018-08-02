@@ -1,9 +1,13 @@
 ﻿using System;
 using kin_kinit_mocker.Model;
+using kin_kinit_mocker.Network;
+using kin_kinit_mocker.Network.Model.Requests;
+using Newtonsoft.Json;
+using Refit;
 
 namespace kin_kinit_mocker.Repository
 {
-    public class UserRepository
+    internal class UserRepository
     {
         private const string USER_ID_KEY = "user_id";
         private const string IS_REGISTERED_KEY = "is_registered";
@@ -18,9 +22,8 @@ namespace kin_kinit_mocker.Repository
         private const string P2P_MIN_KIN = "P2P_MIN_KIN";
         private const string P2P_MIN_TASKS = "P2P_MIN_TASKS";
         private const string P2P_ENABLED = "P2P_ENABLED";
-
+        private const string WALLET_ACTIVATED = "WALLET_ACTIVATED";
         private readonly IDataStore _userCache;
-        private readonly UserInfo _userInfo;
 
         public bool FcmTokenSent
         {
@@ -78,21 +81,30 @@ namespace kin_kinit_mocker.Repository
             get => _userCache.GetValue(P2P_ENABLED, false);
             set => _userCache.PutValue(P2P_ENABLED, value);
         }
+        public bool IsWalletActivated
+        {
+            get => _userCache.GetValue(WALLET_ACTIVATED, false);
+            set => _userCache.PutValue(WALLET_ACTIVATED, value);
+        }
         public UserRepository(IDataStoreProvider dataStoreProvider)
         {
             _userCache = dataStoreProvider.DataStore(USER_CACHE_NAME);
+            UserInfo = _userCache.GetValue<UserInfo>(USER_ID_KEY, null);
 
-            string userId = _userCache.GetValue(USER_ID_KEY, "");
-
-            if (string.IsNullOrEmpty(userId))
+            
+            if (UserInfo == null)
             {
-                userId = Guid.NewGuid().ToString("N");
-                _userCache.PutValue(USER_ID_KEY, userId);
+                var userId = Guid.NewGuid().ToString();
+                UserInfo = new UserInfo(userId);
+                _userCache.PutValue(USER_ID_KEY, UserInfo);
             }
 
-            _userInfo = new UserInfo(userId);
         }
 
-        public string UserId => _userInfo.UserId;
+        [JsonConstructor]
+        private UserRepository() { }
+
+        [JsonIgnore]
+        public UserInfo UserInfo { get; private set; }
     }
 }

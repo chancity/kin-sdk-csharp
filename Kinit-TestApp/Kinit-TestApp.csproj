@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,11 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\kin-kinitapp-mocker\kin-kinitapp.csproj">
       <Project>{675087b1-e7f5-42f1-92d7-d138e7662cd8}</Project>
       <Name>kin-kinitapp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\stellar-dotnet-sdk\stellar-dotnet-sdk.csproj">
+      <Project>{205c4447-79e6-41c1-a70e-5370f4663a81}</Project>
+      <Name>stellar-dotnet-sdk</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

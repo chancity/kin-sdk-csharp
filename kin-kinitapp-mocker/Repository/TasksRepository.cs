@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace kin_kinit_mocker.Repository
 {
-    public class TasksRepository
+    internal class TasksRepository
     {
         private const string QUESTIONNAIRE_ANSWERS_STORAGE = "kin.app.task.chosen.answers";
         private const string TASK_STORAGE = "kin.app.task";
@@ -14,16 +14,17 @@ namespace kin_kinit_mocker.Repository
         private const string TASK_STATE_KEY = "task_state";
         private readonly IDataStore _chosenAnswersCache;
         private readonly IDataStore _taskCache;
-        private readonly List<ChosenAnswers> _chosenAnswers;
+        private readonly List<ChosenAnswer> _chosenAnswers;
         private readonly string _taskStorageName;
         internal bool IsTaskStarted;
 
+
         public TasksRepository(IDataStoreProvider dataStoreProvider, string defaultTask = null)
         {
-            _chosenAnswers = new List<ChosenAnswers>();
+            _chosenAnswers = new List<ChosenAnswer>();
             _taskCache = dataStoreProvider.DataStore(TASK_STORAGE);
-            EarnTask = GetCachedTask(defaultTask);
-            _taskStorageName = QUESTIONNAIRE_ANSWERS_STORAGE + EarnTask?.Id;
+             EarnTask = GetCachedTask(defaultTask);
+            _taskStorageName = QUESTIONNAIRE_ANSWERS_STORAGE;
             _chosenAnswersCache = dataStoreProvider.DataStore(_taskStorageName);
         }
 
@@ -36,16 +37,16 @@ namespace kin_kinit_mocker.Repository
         }
 
         internal int GetNumOfAnsweredQuestions => GetChosenAnswers().Count;
-        internal bool IsTaskComplete => EarnTask?.Questions.Count == GetNumOfAnsweredQuestions;
+        internal bool IsTaskComplete => EarnTask?.Questions?.Count == GetNumOfAnsweredQuestions;
 
         internal bool IsTaskAvaliable
         {
             get
             {
+                if (!EarnTask.IsValid()) return false;
                 long currDate = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                long taskDate = EarnTask?.StartDateInMillis() ?? currDate;
-
-                return currDate >= taskDate;
+                long? taskDate = EarnTask.StartDateInMillis();
+                return taskDate != null && currDate >= taskDate.Value;
             }
         }
 
@@ -60,7 +61,7 @@ namespace kin_kinit_mocker.Repository
 
             if (cachedTask == null)
             {
-                return new EarnTask();
+                return null;
             }
 
             return JsonConvert.DeserializeObject<EarnTask>(cachedTask);
@@ -68,7 +69,7 @@ namespace kin_kinit_mocker.Repository
 
         internal void SetChosenAnswers(string questionId, List<string> answerIds)
         {
-            _chosenAnswers.Add(new ChosenAnswers(questionId, answerIds));
+            _chosenAnswers.Add(new ChosenAnswer(questionId, answerIds));
             _chosenAnswersCache.PutValue(questionId, answerIds);
             IsTaskStarted = true;
         }
@@ -78,7 +79,7 @@ namespace kin_kinit_mocker.Repository
             return _chosenAnswersCache.GetValue<List<string>>(questionId);
         }
 
-        internal List<ChosenAnswers> GetChosenAnswers()
+        internal List<ChosenAnswer> GetChosenAnswers()
         {
             if (_chosenAnswers.Count == 0)
             {
@@ -93,11 +94,11 @@ namespace kin_kinit_mocker.Repository
 
                     if (answers.Value is string strValue)
                     {
-                        _chosenAnswers.Add(new ChosenAnswers(answers.Key, new List<string> {strValue}));
+                        _chosenAnswers.Add(new ChosenAnswer(answers.Key, new List<string> {strValue}));
                     }
                     else if (answers.Value is List<string> list)
                     {
-                        _chosenAnswers.Add(new ChosenAnswers(answers.Key, list));
+                        _chosenAnswers.Add(new ChosenAnswer(answers.Key, list));
                     }
                 }
             }
@@ -116,7 +117,7 @@ namespace kin_kinit_mocker.Repository
         {
             EarnTask = earnTask;
 
-            if (earnTask != null)
+            if (earnTask != null && earnTask.IsValid())
             {
                 _taskCache.PutValue(TASK_KEY, JsonConvert.SerializeObject(earnTask));
 

@@ -22,10 +22,14 @@ namespace kin_kinit_mocker.Model.Earn
         public int? KinReward { get; private set; }
         [JsonProperty("start_date")]
         public long? StartDateInSeconds { get; private set; }
+        [JsonProperty("min_client_version_android")]
+        public string MinClientVersionAndroid { get; set; }
+        [JsonProperty("min_client_version_ios")]
+        public string MinClientVersionIos { get; set; }
         [JsonProperty("min_to_complete")]
         public float? MinToComplete { get; private set; }
         [JsonProperty("tags")]
-        public string Tags { get; private set; }
+        public List<string> Tags { get; private set; }
         [JsonProperty("provider")]
         public Provider? Provider { get; private set; }
         [JsonProperty("type")]

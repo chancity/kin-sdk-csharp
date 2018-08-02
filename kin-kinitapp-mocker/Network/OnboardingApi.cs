@@ -18,7 +18,7 @@ namespace kin_kinit_mocker.Network
         [Post("/user/update-token")]
         Task<StatusConfigResponse> UpdateToken([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] TokenInfoRequest tokenInfoRequestRequestBody);
         [Post("/user/onboard")]
-        Task<StatusConfigResponse> OnBoard([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] AccountInfoRequest accountInfoRequestBody);
+        Task<StatusResponse> OnBoard([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] AccountInfoRequest accountInfoRequestBody);
         [Post("/user/auth/ack")]
         Task<StatusConfigResponse> AuthTokenAck([Header(ServiceCommonData.USER_HEADER_KEY)] string userId, [Body] TokenInfoRequest tokenInfoRequestBody);
     }
