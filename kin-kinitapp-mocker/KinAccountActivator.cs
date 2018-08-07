@@ -46,9 +46,6 @@ namespace kin_kinit_mocker
 
         private static async Task<SubmitTransactionResponse> SendAllowKinTrustOperation(KeyPair account, AccountResponse accountResponse)
         {
-            AllowTrustOperation.Builder allowTrustOperationBuilder =
-                new AllowTrustOperation.Builder(account, "KIN", true).SetSourceAccount(account);
-            
             ChangeTrustOperation.Builder changeTrustOperationBuilder = new ChangeTrustOperation.Builder((AssetTypeCreditAlphaNum)_kinAsset,
                                                                                                         TRUST_NO_LIMIT_VALUE).SetSourceAccount(account);
 
