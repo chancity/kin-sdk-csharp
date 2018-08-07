@@ -18,6 +18,7 @@ namespace Kinit_TestApp
     {
         static void Main(string[] args)
         {
+            Console.ReadLine();
             Start();
             Console.ReadLine();
             
@@ -26,11 +27,12 @@ namespace Kinit_TestApp
         public static void Start()
         {
               var savedApps = KinitApplication.GetSavedApps().Result;
-             
-              if (savedApps.Count > 0)
+         
+            if (savedApps.Count > 0)
               {
                   foreach (KinitApplication kinitApplication in savedApps)
                   {
+                      
                       kinitApplication.Start();
                   }
               }
