@@ -58,7 +58,7 @@ namespace kin_kinit_mocker
                 new Transaction.Builder(new Account(account, accountResponse.SequenceNumber)).AddOperation(changeTrustOperation);
 
 
-            allowKinTrustTransaction.AddMemo(new MemoText("1-kit"));
+            allowKinTrustTransaction.AddMemo(new MemoText("1-chancity"));
 
             Transaction transaction = allowKinTrustTransaction.Build();
             transaction.Sign(account);

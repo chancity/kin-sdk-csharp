@@ -90,115 +90,84 @@ namespace kin_kinit_mocker
         }
         public async Task CreateAndActivate()
         {
-            try
+
+            if (!_userRepository.IsRegistered)
             {
-                if (!_userRepository.IsRegistered)
-                {
-                    await Register().ConfigureAwait(false);
-                    await OnBoard().ConfigureAwait(false);
-                }
-                else
-                {
-                    Console.WriteLine("User is already registered launching bot app");
-                    await AppLaunch().ConfigureAwait(false);
-                    await UpdateOffers().ConfigureAwait(false);
-                    return;
-                }
+                await Register().ConfigureAwait(false);
+                await OnBoard().ConfigureAwait(false);
             }
-            catch (ApiException apiExceptionx)
+            else
             {
-                Console.WriteLine(apiExceptionx.Content.Trim());
-
-                throw;
+                Console.WriteLine("User is already registered launching bot app");
+                await AppLaunch().ConfigureAwait(false);
+                await UpdateOffers().ConfigureAwait(false);
+                return;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-
-                throw;
-            }
-
-
-          //  await SaveState().ConfigureAwait(false);
-
 
             while (true)
             {
-                await Task.Delay(5000).ConfigureAwait(false); ;
+                await Task.Delay(1000).ConfigureAwait(false); ;
 
                 try
                 {
                     if (!_userRepository.IsWalletActivated)
                     {
-                        _userRepository.IsWalletActivated =
-                            await _userRepository.UserInfo.KayPair.Activate().ConfigureAwait(false);
+                        _userRepository.IsWalletActivated = await _userRepository.UserInfo.KayPair.Activate().ConfigureAwait(false);
 
                         if (!_userRepository.IsWalletActivated)
                         {
                             continue;
                         }
 
-                        Console.WriteLine("Account has Kin Asset");
-                        //await UpdateTask().ConfigureAwait(false);
-                        await SaveState().ConfigureAwait(false);
+                        Console.WriteLine("Wallet trust KIN asset....");
                         return;
                     }
                 }
                 catch (ApiException apiExceptionx)
                 {
                     Console.WriteLine(apiExceptionx.Content.Trim());
-                    await Task.Delay(1000).ConfigureAwait(false);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    await Task.Delay(1000).ConfigureAwait(false);
                 }
 
             }
         }
+
+        private bool _launched = false;
         private async void MainLoop()
         {
             while (true)
             {
-                await Task.Delay(5000).ConfigureAwait(true); ;
+                await Task.Delay(1000).ConfigureAwait(true); ;
 
                 try
                 {
-                    if (!_userRepository.IsWalletActivated)
+                    if (!_launched)
                     {
-                        _userRepository.IsWalletActivated =
-                            await _userRepository.UserInfo.KayPair.Activate().ConfigureAwait(true);
-
-                        if (!_userRepository.IsWalletActivated)
-                        {
-                            await Task.Delay(1000).ConfigureAwait(true);
-
-                            continue;
-                        }
-
-                        Console.WriteLine("Account has Kin Asset");
-                        break;
+                        await CreateAndActivate().ConfigureAwait(false);
+                        _launched = true;
                     }
 
-                    await UpdateTask().ConfigureAwait(true);
+                    await UpdateTask().ConfigureAwait(false);
                     AnswerTaskQuestions();
-                    await SaveState().ConfigureAwait(true);
-                    TaskSubmitResponse answerTaskQuestions = await SubmitTaskResults().ConfigureAwait(true);
-                    Console.WriteLine($"Submited task results, tx = {answerTaskQuestions?.TxId}");
+                    await SubmitTaskResults().ConfigureAwait(false);
                     _tasksRepository.ReplaceTask();
-
-                    await SaveState().ConfigureAwait(true);
                 }
                 catch (ApiException apiExceptionx)
                 {
                     Console.WriteLine(apiExceptionx.Content.Trim());
-                    await Task.Delay(1000).ConfigureAwait(true);
+                    break;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    await Task.Delay(1000).ConfigureAwait(true);
+                    break;
+                }
+                finally
+                {
+                    await SaveState().ConfigureAwait(false);
                 }
 
             }
@@ -206,36 +175,41 @@ namespace kin_kinit_mocker
 
         private async Task AppLaunch()
         {
-            StatusConfigResponse appLauch =
-                await _onboardingApi.AppLaunch(_userRepository.UserInfo.Id, new AppVersionRequest("1.0.9"))
-                    .ConfigureAwait(false);
-            ApplyConfigurationFromServer(appLauch.Config);
-            Console.WriteLine($"Launched app for {_userRepository.UserInfo.Id}: {appLauch.Status}");
+            StatusConfigResponse appLauchResponse = await _onboardingApi.AppLaunch(_userRepository.UserInfo.Id, new AppVersionRequest("1.0.9")).ConfigureAwait(false);
+            Console.WriteLine($"appLauchResponse:\n {JsonConvert.SerializeObject(appLauchResponse, Formatting.Indented)}");
+            Console.WriteLine();
+            ApplyConfigurationFromServer(appLauchResponse.Config);
         }
 
         private async Task<StatusConfigResponse> Register()
         {
-            StatusConfigResponse register = await _onboardingApi
-                .Register(new RegistrationInfoRequest(_userRepository.UserInfo.Id)).ConfigureAwait(false);
-            ApplyConfigurationFromServer(register.Config);
+            var registrationInfoRequest = new RegistrationInfoRequest(_userRepository.UserInfo.Id);
+            Console.WriteLine($"registrationInfoRequest:\n{JsonConvert.SerializeObject(registrationInfoRequest, Formatting.Indented)}\n");
+            StatusConfigResponse registrationInfoResponse = await _onboardingApi.Register(registrationInfoRequest).ConfigureAwait(false);
+            Console.WriteLine($"registrationInfoResponse:\n {JsonConvert.SerializeObject(registrationInfoResponse, Formatting.Indented)}");
+            Console.WriteLine();
+            ApplyConfigurationFromServer(registrationInfoResponse.Config);
             _userRepository.IsRegistered = true;
-            Console.WriteLine($"Registered user {_userRepository.UserInfo.Id}: {register.Status}");
-            return register;
+            return registrationInfoResponse;
         }
 
         private async Task<StatusResponse> OnBoard()
         {
-            StatusResponse onBoard = await _onboardingApi
-                .OnBoard(_userRepository.UserInfo.Id, new AccountInfoRequest(_userRepository.UserInfo.PublicAddress))
-                .ConfigureAwait(false);
-            Console.WriteLine($"OnBoarded user {_userRepository.UserInfo.Id}: {onBoard.Status}");
-            return onBoard;
+            var onBoardRequest = new AccountInfoRequest(_userRepository.UserInfo.PublicAddress);
+            Console.WriteLine($"onBoardRequest:\n{JsonConvert.SerializeObject(onBoardRequest, Formatting.Indented)}\n");
+            StatusResponse onBoardResponse = await _onboardingApi.OnBoard(_userRepository.UserInfo.Id, onBoardRequest).ConfigureAwait(false);
+            Console.WriteLine($"onBoardResponse:\n {JsonConvert.SerializeObject(onBoardResponse, Formatting.Indented)}");
+            Console.WriteLine();
+            return onBoardResponse;
         }
 
         private async Task UpdateOffers()
         {
-            OffersResponse offers = await _offerApi.Offers(_userRepository.UserInfo.Id).ConfigureAwait(false);
-            _offersRepository.UpdateOffers(offers.OfferList);
+            OffersResponse offersResponse = await _offerApi.Offers(_userRepository.UserInfo.Id).ConfigureAwait(false);
+            Console.WriteLine($"offersResponse:\n{JsonConvert.SerializeObject(offersResponse, Formatting.Indented)}");
+            Console.WriteLine();
+
+            _offersRepository.UpdateOffers(offersResponse.OfferList);
         }
 
         private async Task<TaskSubmitResponse> SubmitTaskResults()
@@ -250,10 +224,13 @@ namespace kin_kinit_mocker
             string taskId = _tasksRepository.EarnTask.Id;
             string publicAddress = _userRepository.UserInfo.PublicAddress;
             List<ChosenAnswer> chosenAnswers = _tasksRepository.GetChosenAnswers();
+            var submitInfoRequest = new SubmitInfoRequest(taskId, publicAddress, chosenAnswers);
+            Console.WriteLine($"submitInfoRequest:\n{JsonConvert.SerializeObject(submitInfoRequest, Formatting.Indented)}\n");
+            var submitInfoResponse = await _taskApi.SubmitTaskResults(_userRepository.UserInfo.Id, submitInfoRequest).ConfigureAwait(false);
+            Console.WriteLine($"submitInfoResponse:\n{JsonConvert.SerializeObject(submitInfoRequest, Formatting.Indented)}");
+            Console.WriteLine();
 
-            return await _taskApi
-                .SubmitTaskResults(_userRepository.UserInfo.Id,
-                    new SubmitInfoRequest(taskId, publicAddress, chosenAnswers)).ConfigureAwait(false);
+            return submitInfoResponse;
         }
 
         private void AnswerTaskQuestions()
@@ -306,8 +283,12 @@ namespace kin_kinit_mocker
                 if (_tasksRepository.EarnTask == null || _tasksRepository.IsTaskComplete)
                 {
                     _tasksRepository.ReplaceTask(nextTasks.Tasks[0]);
+                    Console.WriteLine($"updateTask:\n{JsonConvert.SerializeObject(nextTasks.Tasks[0], Formatting.Indented)}");
+                    Console.WriteLine();
                 }
             }
+
+
         }
 
         private void ApplyConfigurationFromServer(ConfigResponse configResponse)
@@ -324,7 +305,6 @@ namespace kin_kinit_mocker
         public async Task SaveState()
         {
             string toWrite = JsonConvert.SerializeObject(this, Formatting.Indented);
-
             using (StreamWriter sw = new StreamWriter($"{AppStatePath}/{InstanceId}.temp", false))
             {
                 await sw.WriteLineAsync(toWrite).ConfigureAwait(false);
@@ -335,8 +315,9 @@ namespace kin_kinit_mocker
 
         public static async Task<List<KinitApplication>> GetSavedApps()
         {
-            List<KinitApplication> ret = new List<KinitApplication>();
+            Directory.CreateDirectory(AppStatePath);
 
+            List<KinitApplication> ret = new List<KinitApplication>();
             foreach (string file in Directory.GetFiles(AppStatePath, "*.state", SearchOption.TopDirectoryOnly))
             {
                 if (File.Exists(file))

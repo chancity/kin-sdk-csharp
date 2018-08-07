@@ -7,9 +7,9 @@ namespace kin_kinit_mocker.Model.Earn
 {
     public class ChosenAnswer
     {
-        [JsonProperty("qid)")]
+        [JsonProperty("qid")]
         public string QuestionId { get; set; }
-        [JsonProperty("aid)")]
+        [JsonProperty("aid")]
         public List<string> AnswersIds { get; set; }
 
         public ChosenAnswer(string questionId, List<string> answersIds)
