@@ -12,13 +12,14 @@ namespace WalletActivator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your KIN wallet seed:");
+            Console.Write("Enter your KIN wallet seed: ");
             var walletSeed = Console.ReadLine();
 
             try
             {
                 var keyPair = KeyPair.FromSecretSeed(walletSeed);
                 var result = keyPair.Activate().Result;
+
 
                 Console.WriteLine($"Account activated: {result}");
 
