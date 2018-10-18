@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kin-ecosystem-api-client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stellar-dotnet-sdk", "stellar-dotnet-sdk\stellar-dotnet-sdk.csproj", "{205C4447-79E6-41C1-A70E-5370F4663A81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kin-kinitapp", "kin-kinitapp-mocker\kin-kinitapp.csproj", "{675087B1-E7F5-42F1-92D7-D138E7662CD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kin-kinitapp", "kin-kinitapp-mocker\kin-kinitapp.csproj", "{675087B1-E7F5-42F1-92D7-D138E7662CD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinit-TestApp", "Kinit-TestApp\Kinit-TestApp.csproj", "{425EA85D-1BE7-4447-901A-45A1C7059F28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletActivator", "WalletActivator\WalletActivator.csproj", "{F11D48AB-13F9-40B9-A7EF-6D07E0155781}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{425EA85D-1BE7-4447-901A-45A1C7059F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F11D48AB-13F9-40B9-A7EF-6D07E0155781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F11D48AB-13F9-40B9-A7EF-6D07E0155781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F11D48AB-13F9-40B9-A7EF-6D07E0155781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F11D48AB-13F9-40B9-A7EF-6D07E0155781}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
